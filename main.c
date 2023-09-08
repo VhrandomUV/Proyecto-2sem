@@ -33,6 +33,7 @@ void menu(){
     
     default:
         printf("Opcion no valida");
+        main();
         break;
     }
 
