@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 
-
+/*estas funciones (adentro y afuera ) se ocuparan de realizar la logica correspondeinte para cada caso*/
 void adentro(){
     printf("Adentro");
 }
@@ -10,8 +10,7 @@ void afuera(){
     printf("Afuera");
 }
 
-
-
+/*menu de opciones*/
 void menu(){
     int opcion;
     printf("1.- Adentro\n");
@@ -32,7 +31,7 @@ void menu(){
         break;
     
     default:
-        printf("Opcion no valida");
+        printf("Opcion no valida\n");
         menu();
         break;
     }
