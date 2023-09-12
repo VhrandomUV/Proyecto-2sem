@@ -12,6 +12,32 @@ void reserva();
 void disponibilidad();
 
 /*menu de opciones*/
+void menu();
+
+
+
+void main(){
+    printf("Reservas.... \n");
+
+    menu();
+
+}
+
+void adentro(){
+    printf("Adentro");
+}
+
+void afuera(){
+    printf("Afuera");
+}
+
+void reserva(){
+
+}
+void disponibilidad(){
+
+}
+
 void menu(){
     int opcion;
     printf("¿Qué tipo de mesa quieres reservar: ");
@@ -37,28 +63,5 @@ void menu(){
         menu();
         break;
     }
-
-}
-
-
-void main(){
-    printf("Reservas.... \n");
-
-    menu();
-
-}
-
-void adentro(){
-    printf("Adentro");
-}
-
-void afuera(){
-    printf("Afuera");
-}
-
-void reserva(){
-
-}
-void disponibilidad(){
 
 }
