@@ -8,6 +8,9 @@ void afuera();
 /*crea la reserva de la mesa */
 void reserva();
 
+/* comprueba si la mesa esta disponible*/
+void disponibilidad();
+
 /*menu de opciones*/
 void menu(){
     int opcion;
@@ -55,6 +58,7 @@ void afuera(){
 
 void reserva(){
 
-
+}
+void disponibilidad(){
 
 }
