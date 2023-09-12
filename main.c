@@ -2,13 +2,11 @@
 
 
 /*estas funciones (adentro y afuera ) se ocuparan de realizar la logica correspondeinte para cada caso*/
-void adentro(){
-    printf("Adentro");
-}
+void adentro();
 
-void afuera(){
-    printf("Afuera");
-}
+void afuera();
+/*crea la reserva de la mesa */
+void reserva();
 
 /*menu de opciones*/
 void menu(){
@@ -46,3 +44,16 @@ void main(){
 
 }
 
+void adentro(){
+    printf("Adentro");
+}
+
+void afuera(){
+    printf("Afuera");
+}
+
+void reserva(){
+
+
+
+}
