@@ -11,6 +11,7 @@ void reserva();
 /*menu de opciones*/
 void menu(){
     int opcion;
+    printf("¿Qué tipo de mesa quieres reservar: ");
     printf("1.- Adentro\n");
     printf("2.- Afuera\n");
     printf("3.- Salir\n");
