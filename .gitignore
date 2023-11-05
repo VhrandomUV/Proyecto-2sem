@@ -5,3 +5,5 @@
 *.o
 *.so
 refactor.c
+*.out
+.vscode
