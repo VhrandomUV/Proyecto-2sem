@@ -208,7 +208,7 @@ void estadistica(){
     float porcent_adentro = cont_adentro * 100 / CANT_MESAS;
     float porcent_total = (cont_adentro + cont_afuera) * 100 / (CANT_MESAS * 2);
 
-    printf("mesas interiores ocupadas: %.2f \n", porcent_adentro);
-    printf("mesas exteriores ocupadas: %.2f \n", porcent_afuera);
-    printf("total de mesa ocupadas: %.2f \n", porcent_total);
+    printf("mesas interiores ocupadas: %.2f%% \n", porcent_adentro);
+    printf("mesas exteriores ocupadas: %.2f%% \n", porcent_afuera);
+    printf("total de mesa ocupadas: %.2f%% \n", porcent_total);
 }

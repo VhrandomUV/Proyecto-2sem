@@ -7,3 +7,4 @@
 refactor.c
 *.out
 .vscode
+main
