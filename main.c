@@ -126,7 +126,7 @@ void generador(){
         
         
     }
-    
+    free(ptr);
 }
 
 
