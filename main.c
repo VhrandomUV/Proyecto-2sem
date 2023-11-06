@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 
 #define P_M2 1500
 #define P_M4 2000
 #define P_M6 2500
 #define CANT_MESAS 3
-
+int prices[CANT_MESAS] = {P_M2, P_M4, P_M6};
 
 
 int precio = 0;
@@ -95,8 +97,13 @@ int num_personas(){
 void generador(){
     int i = 0;
     int n = 2;
-
-    int prices[3] = {P_M2, P_M4, P_M6};
+    int * ptr;
+    ptr = (int*)malloc(CANT_MESAS*sizeof(int));
+    
+    for (i = 0; i < CANT_MESAS; i++){
+        ptr[i] = prices[i];
+    }
+    
 
     
     for(i = 0; i < CANT_MESAS; i++){
@@ -104,7 +111,7 @@ void generador(){
         mesa[0][i].cap = n;
         n +=2;
         mesa[0][i].disp ="libre";
-        mesa[0][i].prec = prices[i];
+        mesa[0][i].prec = ptr[i];
         
         
     }
@@ -115,7 +122,7 @@ void generador(){
         mesa[1][i].cap = n;
         n +=2;
         mesa[1][i].disp  = "libre";
-        mesa[1][i].prec = prices[i];
+        mesa[1][i].prec = ptr[i];
         
         
     }
