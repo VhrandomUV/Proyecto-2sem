@@ -1,37 +1,49 @@
+//Brandon Villalobos S2, Javier Maturana S2, Felipe Astudillo S1
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
-
+//precios mesas
 #define P_M2 1500
 #define P_M4 2000
 #define P_M6 2500
+
+//cantidad de mesas por ubicacion
 #define CANT_MESAS 3
+
+//lista que contiene los precios
 int prices[CANT_MESAS] = {P_M2, P_M4, P_M6};
 
-
+// sirve para almacenar el costo total de la/s reserva/s
 int precio = 0;
 
 struct Mesas
 {
-    int cap;
-    int prec;
+    int cap; //capaciad
+    int prec; //precio
     char *disp; // libre ; ocupado
     char *ubi; // adentro ; afuera
 };
 struct Mesas mesa[2][CANT_MESAS];
 
 
-
+//menu principal
 void menu();
 
+
+//extraee el num de personas que comeran en un mesas
 int num_personas();
 
+// genera las mesas y sus caracteristicas
 void generador();
 
+// hace la reserva
 void reserva();
 
+// pregunta si quiere continuar el peograma
 void continuar();
-
+//genera las estadisticas
 void estadistica();
 
 
@@ -40,9 +52,8 @@ void main(){
 printf("Reservas.... \n");
     generador();    
     menu();
-    printf("coto final: $%d\n", precio);
+    printf("costo final: $%d\n", precio);
 }
-
 
 
 void menu(){
@@ -77,7 +88,7 @@ void menu(){
 
 int num_personas(){
     int n_personas;
-    printf("ingrese cuntas personas comeran en la mesa (de 1 a 6 perosnas): ");
+    printf("ingrese cuantas personas comeran en la mesa (de 1 a 6 personas): ");
     scanf("%d", &n_personas);
 
     n_personas = n_personas + n_personas%2;
@@ -91,7 +102,6 @@ int num_personas(){
         
     
 }
-
 
 
 void generador(){
@@ -155,8 +165,6 @@ void reserva(int ubi){
 
     estadistica();
 
-
-    
         
 continuar();
 
@@ -193,24 +201,18 @@ void estadistica(){
     for (i = 0; i<CANT_MESAS; i++){
 
         if (mesa[0][i].disp == "ocupado"){
-            cont_adentro ++;       
-            
+            cont_adentro ++;            
         }
-        
     }
 
     for (i = 0; i<CANT_MESAS; i++){
 
         if (mesa[1][i].disp == "ocupado"){
-            cont_afuera ++ ;
-            
-        }
-        
+            cont_afuera ++ ;   
+        }   
     }
 
-   
 
-    
     float porcent_afuera = cont_afuera * 100 / CANT_MESAS;
     float porcent_adentro = cont_adentro * 100 / CANT_MESAS;
     float porcent_total = (cont_adentro + cont_afuera) * 100 / (CANT_MESAS * 2);
