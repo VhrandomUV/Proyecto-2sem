@@ -57,9 +57,6 @@ printf("Reservas.... \n");
 
 
 void menu(){
-
-    
-    
     int opcion;
     printf("Seleccione el tipo de mesa: \n");
     printf("1.- Adentro\n");
