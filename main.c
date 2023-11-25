@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //precios mesas
 #define P_M2 1500
@@ -22,8 +23,8 @@ struct Mesas
 {
     int cap; //capaciad
     int prec; //precio
-    char *disp; // libre ; ocupado
-    char *ubi; // adentro ; afuera
+    char disp[7]; // libre ; ocupado
+    char ubi[7]; // adentro ; afuera
 };
 struct Mesas mesa[2][CANT_MESAS];
 
@@ -103,37 +104,29 @@ int num_personas(){
 
 void generador(){
     int i = 0;
-    int n = 2;
-    int * ptr;
+    //int n = 2;
+/*    int * ptr;
     ptr = (int*)malloc(CANT_MESAS*sizeof(int));
     
     for (i = 0; i < CANT_MESAS; i++){
         ptr[i] = prices[i];
-    }
+    }*/
+    
+    FILE *archivo = fopen("mesas.txt", "r");
     
 
-    
-    for(i = 0; i < CANT_MESAS; i++){
-        mesa[0][i].ubi = "adentro";
-        mesa[0][i].cap = n;
-        n +=2;
-        mesa[0][i].disp ="libre";
-        mesa[0][i].prec = ptr[i];
-        
-        
+    while (i < CANT_MESAS){
+        fscanf(archivo, "%d %d %s %s", &mesa[0][i].cap, &mesa[0][i].prec, mesa[0][i].disp, mesa[0][i].ubi);
+        i++;
+    }
+    i=0;
+    while (i < CANT_MESAS){
+        printf("%d %d %s %s\n", mesa[0][i].cap, mesa[0][i].prec, mesa[0][i].disp, mesa[0][i].ubi);
+        i++;
     }
 
-    n =2;
-    for(i = 0; i < CANT_MESAS; i++){
-        mesa[1][i].ubi = "afuera";
-        mesa[1][i].cap = n;
-        n +=2;
-        mesa[1][i].disp  = "libre";
-        mesa[1][i].prec = ptr[i];
-        
-        
-    }
-    free(ptr);
+    fclose(archivo);
+    //free(ptr);
 }
 
 
@@ -144,7 +137,7 @@ void reserva(int ubi){
 
     for(int i = 0; i<CANT_MESAS; i++){
         if(mesa[ubi][i].cap == n && mesa[ubi][i].disp == "libre"){
-            mesa[ubi][i].disp = "ocupado";
+            strcpy(mesa[ubi][i].disp , "ocupado");
             reserva  = 1;
             precio += mesa[ubi][i].prec;
             

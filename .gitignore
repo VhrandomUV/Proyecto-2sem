@@ -1,6 +1,7 @@
 # Compiled source #
 ###################
 
+prueba.c
 *.exe
 *.o
 *.so
