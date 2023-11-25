@@ -18,15 +18,16 @@ int prices[CANT_MESAS] = {P_M2, P_M4, P_M6};
 
 // sirve para almacenar el costo total de la/s reserva/s
 int precio = 0;
+//FILE *archivo ;
 
 struct Mesas
 {
     int cap; //capaciad
-    int prec; //precio
+    int prec; //precio   
+    char ubi[10]; // adentro ; afuera
     char disp[7]; // libre ; ocupado
-    char ubi[7]; // adentro ; afuera
 };
-struct Mesas mesa[2][CANT_MESAS];
+struct Mesas mesa[CANT_MESAS];
 
 
 //menu principal
@@ -50,14 +51,16 @@ void estadistica();
 
 
 void main(){
-printf("Reservas.... \n");
-    generador();    
+    FILE *archivo ;
+    printf("Reservas.... \n");
+    generador(archivo);    
     menu();
     printf("costo final: $%d\n", precio);
 }
 
 
 void menu(){
+    FILE *archivo;
     int opcion;
     printf("Seleccione el tipo de mesa: \n");
     printf("1.- Adentro\n");
@@ -69,10 +72,10 @@ void menu(){
     switch (opcion)
     {
     case 1:
-        reserva(0);
+        reserva("adentro", archivo);
         break;
     case 2:
-        reserva(1);
+        reserva("afuera", archivo);
         break;
     case 3:
         break;
@@ -102,7 +105,7 @@ int num_personas(){
 }
 
 
-void generador(){
+void generador(FILE *archivo){
     int i = 0;
     //int n = 2;
 /*    int * ptr;
@@ -111,17 +114,16 @@ void generador(){
     for (i = 0; i < CANT_MESAS; i++){
         ptr[i] = prices[i];
     }*/
-    
-    FILE *archivo = fopen("mesas.txt", "r");
-    
+
+    archivo =fopen("mesas.txt", "r");
 
     while (i < CANT_MESAS){
-        fscanf(archivo, "%d %d %s %s", &mesa[0][i].cap, &mesa[0][i].prec, mesa[0][i].disp, mesa[0][i].ubi);
+        fscanf(archivo, "%d %d %s %s", &mesa[i].cap, &mesa[i].prec, mesa[i].ubi, mesa[i].disp);
         i++;
     }
     i=0;
     while (i < CANT_MESAS){
-        printf("%d %d %s %s\n", mesa[0][i].cap, mesa[0][i].prec, mesa[0][i].disp, mesa[0][i].ubi);
+        printf("%d %d %s %s\n", mesa[i].cap, mesa[i].prec, mesa[i].ubi, mesa[i].disp);
         i++;
     }
 
@@ -130,27 +132,35 @@ void generador(){
 }
 
 
-void reserva(int ubi){
+void reserva(char *ubi, FILE *archivo){
     int n = num_personas();
     int reserva = 0;
+    int i= 0;
+    archivo = fopen("mesas.txt", "a+");
+
+
+    i=0;
+    while(i<CANT_MESAS){
+        if ((mesa[i].cap == n)&& (strcmp("libre", mesa[i].disp) ==0)){
+            printf("CONDICION\n");
+            strcpy(mesa[i].disp,"ocupado");
+            fprintf(archivo,"%d %d %s %s",mesa[i].cap, mesa[i].prec, mesa[i].ubi, mesa[i].disp );
+    }
+        ++i;
+ }
+
+
     
 
-    for(int i = 0; i<CANT_MESAS; i++){
-        if(mesa[ubi][i].cap == n && mesa[ubi][i].disp == "libre"){
-            strcpy(mesa[ubi][i].disp , "ocupado");
-            reserva  = 1;
-            precio += mesa[ubi][i].prec;
-            
-        }
+    fclose(archivo);
         
-    }
     if (reserva == 1){
             printf("mesa reservada\n");
             printf("total: %d \n", precio);
                    
         }
-    else
-        printf("no se  en contro una mesa con esas caracteristicas \n ");
+    // else
+    //     printf("no se  en contro una mesa con esas caracteristicas \n");
 
 
     estadistica();
@@ -186,18 +196,23 @@ void estadistica(){
     int i = 0;
     int cont_adentro = 0;
     int cont_afuera = 0;
+
+    while (i < CANT_MESAS){
+        printf("%d %d %s %s\n", mesa[i].cap, mesa[i].prec, mesa[i].ubi,mesa[i].disp );
+        i++;
+    }
     
 
     for (i = 0; i<CANT_MESAS; i++){
 
-        if (mesa[0][i].disp == "ocupado"){
+        if ((strcmp("ocupado", mesa[i].disp)==0 )&& (strcmp("adentro",mesa[i].ubi )==0)){
             cont_adentro ++;            
         }
     }
 
     for (i = 0; i<CANT_MESAS; i++){
 
-        if (mesa[1][i].disp == "ocupado"){
+        if ((strcmp("ocupado", mesa[i].disp)==0 )&& (strcmp("afuera",mesa[i].ubi )==0)){
             cont_afuera ++ ;   
         }   
     }
@@ -205,9 +220,10 @@ void estadistica(){
 
     float porcent_afuera = cont_afuera * 100 / CANT_MESAS;
     float porcent_adentro = cont_adentro * 100 / CANT_MESAS;
-    float porcent_total = (cont_adentro + cont_afuera) * 100 / (CANT_MESAS * 2);
+    float porcent_total = (cont_adentro + cont_afuera) * 100 / (CANT_MESAS);
 
     printf("mesas interiores ocupadas: %.2f%% \n", porcent_adentro);
     printf("mesas exteriores ocupadas: %.2f%% \n", porcent_afuera);
     printf("total de mesa ocupadas: %.2f%% \n", porcent_total);
+    printf("%d\n", cont_adentro);
 }
