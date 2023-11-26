@@ -142,7 +142,7 @@ void reserva(char *ubi)
     i = 0;
     while (i < CANT_MESAS_T)
     {
-        if ((mesa[i].cap == n) && (strcmp("libre", mesa[i].disp) == 0))
+        if ((mesa[i].cap == n) && (strcmp("libre", mesa[i].disp) == 0) && (strcmp(ubi, mesa[i].ubi)==0))
         {
             printf("CONDICION\n");
             strcpy(mesa[i].disp, "ocupado");
@@ -228,12 +228,12 @@ void estadistica()
         }
     }
 
-    float porcent_afuera = cont_afuera * 100 / CANT_MESAS_T;
-    float porcent_adentro = cont_adentro * 100 / CANT_MESAS_T;
+    float porcent_afuera = cont_afuera * 100 / MESAS_AFUERA;
+    float porcent_adentro = cont_adentro * 100 / MESAS_ADENTRO;
     float porcent_total = (cont_adentro + cont_afuera) * 100 / (CANT_MESAS_T);
 
     printf("mesas interiores ocupadas: %.2f%% \n", porcent_adentro);
     printf("mesas exteriores ocupadas: %.2f%% \n", porcent_afuera);
     printf("total de mesa ocupadas: %.2f%% \n", porcent_total);
-    printf("%d\n", cont_adentro);
+    
 }
