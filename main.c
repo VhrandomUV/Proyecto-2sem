@@ -15,9 +15,6 @@
 #define MESAS_ADENTRO 3
 #define MESAS_AFUERA 3
 
-// lista que contiene los precios
-int prices[CANT_MESAS_T] = {P_M2, P_M4, P_M6};
-
 // sirve para almacenar el costo total de la/s reserva/s
 int precio = 0;
 
@@ -52,6 +49,7 @@ void main()
 {
 
     printf("Reservas.... \n");
+    
     generador();
     menu();
     printf("costo final: $%d\n", precio);
@@ -105,13 +103,6 @@ void generador()
 {
     FILE *archivo;
     int i = 0;
-    // int n = 2;
-    /*    int * ptr;
-        ptr = (int*)malloc(CANT_MESAS_T*sizeof(int));
-
-        for (i = 0; i < CANT_MESAS_T; i++){
-            ptr[i] = prices[i];
-        }*/
 
     archivo = fopen("mesas.txt", "r");
 
@@ -203,6 +194,9 @@ void estadistica()
     int i = 0;
     int cont_adentro = 0;
     int cont_afuera = 0;
+    int cont_cap2=0;
+    int cont_cap4=0;
+    int cont_cap6=0;
 
     while (i < CANT_MESAS_T)
     {
@@ -217,23 +211,42 @@ void estadistica()
         {
             cont_adentro++;
         }
-    }
-
-    for (i = 0; i < CANT_MESAS_T; i++)
-    {
-
         if ((strcmp("ocupado", mesa[i].disp) == 0) && (strcmp("afuera", mesa[i].ubi) == 0))
         {
             cont_afuera++;
         }
-    }
 
+        if ((strcmp("ocupado", mesa[i].disp) == 0) && (mesa[i].cap == 2)){
+            cont_cap2++;
+         }
+        if ((strcmp("ocupado", mesa[i].disp) == 0) && (mesa[i].cap == 4)){
+            cont_cap4++;
+        }
+        if ((strcmp("ocupado", mesa[i].disp) == 0) && (mesa[i].cap == 6)){
+            cont_cap6++;
+        }
+    }
+    
+
+
+        
+
+
+    float porcent_cap2 = cont_cap2 * 100 / 2;
+    float porcent_cap4 = cont_cap4 * 100 /2;
+    float porcent_cap6 = cont_cap6 * 100 / 2;
+    
     float porcent_afuera = cont_afuera * 100 / MESAS_AFUERA;
     float porcent_adentro = cont_adentro * 100 / MESAS_ADENTRO;
     float porcent_total = (cont_adentro + cont_afuera) * 100 / (CANT_MESAS_T);
 
+    printf("Mesas para 2 personas ocupadas: %.2f%%\n", porcent_cap2);
+    printf("Mesas para 4 personas ocupadas: %.2f%%\n", porcent_cap4);
+    printf("Mesas para 6 personas ocupadas: %.2f%%\n", porcent_cap6);
+
     printf("mesas interiores ocupadas: %.2f%% \n", porcent_adentro);
     printf("mesas exteriores ocupadas: %.2f%% \n", porcent_afuera);
+
     printf("total de mesa ocupadas: %.2f%% \n", porcent_total);
     
 }
