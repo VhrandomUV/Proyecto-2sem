@@ -51,16 +51,16 @@ void estadistica();
 
 
 void main(){
-    FILE *archivo ;
+   
     printf("Reservas.... \n");
-    generador(archivo);    
+    generador();    
     menu();
     printf("costo final: $%d\n", precio);
 }
 
 
 void menu(){
-    FILE *archivo;
+    
     int opcion;
     printf("Seleccione el tipo de mesa: \n");
     printf("1.- Adentro\n");
@@ -72,10 +72,10 @@ void menu(){
     switch (opcion)
     {
     case 1:
-        reserva("adentro", archivo);
+        reserva("adentro");
         break;
     case 2:
-        reserva("afuera", archivo);
+        reserva("afuera");
         break;
     case 3:
         break;
@@ -105,7 +105,8 @@ int num_personas(){
 }
 
 
-void generador(FILE *archivo){
+void generador(){
+    FILE *archivo ;
     int i = 0;
     //int n = 2;
 /*    int * ptr;
@@ -132,11 +133,12 @@ void generador(FILE *archivo){
 }
 
 
-void reserva(char *ubi, FILE *archivo){
+void reserva(char *ubi){
+    FILE *archivo ;
     int n = num_personas();
     int reserva = 0;
     int i= 0;
-    archivo = fopen("mesas.txt", "a+");
+    archivo = fopen("mesas.txt", "w+");
 
 
     i=0;
@@ -144,8 +146,15 @@ void reserva(char *ubi, FILE *archivo){
         if ((mesa[i].cap == n)&& (strcmp("libre", mesa[i].disp) ==0)){
             printf("CONDICION\n");
             strcpy(mesa[i].disp,"ocupado");
-            fprintf(archivo,"%d %d %s %s",mesa[i].cap, mesa[i].prec, mesa[i].ubi, mesa[i].disp );
+            fprintf(archivo,"%d %d %s %s\n",mesa[i].cap, mesa[i].prec, mesa[i].ubi, mesa[i].disp ); 
+            precio += mesa[i].prec;
+            reserva =  1;  
     }
+
+        else{
+            fprintf(archivo,"%d %d %s %s\n",mesa[i].cap, mesa[i].prec, mesa[i].ubi, mesa[i].disp );
+        }
+
         ++i;
  }
 
@@ -159,8 +168,9 @@ void reserva(char *ubi, FILE *archivo){
             printf("total: %d \n", precio);
                    
         }
-    // else
-    //     printf("no se  en contro una mesa con esas caracteristicas \n");
+    else{
+        printf("no se  en contro una mesa con esas caracteristicas \n");
+        }
 
 
     estadistica();
@@ -179,9 +189,9 @@ void continuar(){
     switch (opcion)
     {
     case 1:
+        generador();
         menu();
         
-
     case 2:
         
         break;
