@@ -207,12 +207,10 @@ void estadistica()
     for (i = 0; i < CANT_MESAS_T; i++)
     {
 
-        if ((strcmp("ocupado", mesa[i].disp) == 0) && (strcmp("adentro", mesa[i].ubi) == 0))
-        {
+        if ((strcmp("ocupado", mesa[i].disp) == 0) && (strcmp("adentro", mesa[i].ubi) == 0)){
             cont_adentro++;
         }
-        if ((strcmp("ocupado", mesa[i].disp) == 0) && (strcmp("afuera", mesa[i].ubi) == 0))
-        {
+        if ((strcmp("ocupado", mesa[i].disp) == 0) && (strcmp("afuera", mesa[i].ubi) == 0)){
             cont_afuera++;
         }
 
@@ -227,10 +225,6 @@ void estadistica()
         }
     }
     
-
-
-        
-
 
     float porcent_cap2 = cont_cap2 * 100 / 2;
     float porcent_cap4 = cont_cap4 * 100 /2;
